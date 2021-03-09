@@ -12,21 +12,24 @@ namespace TicTacToe
 
             Piece currentPlayer = Piece.X;
 
-            Console.WriteLine("   |   |   ");
-            Console.WriteLine("---+---+---");
-            Console.WriteLine("   |   |   ");
-            Console.WriteLine("---+---+---");
-            Console.WriteLine("   |   |   ");
+            bool isMoveValid = false;
+            do
+            {
+                Console.WriteLine("   |   |   ");
+                Console.WriteLine("---+---+---");
+                Console.WriteLine("   |   |   ");
+                Console.WriteLine("---+---+---");
+                Console.WriteLine("   |   |   ");
 
-            Console.Write("Where do you want to move? ");
-            string move = Console.ReadLine();
+                Console.Write("Where do you want to move? ");
+                string move = Console.ReadLine();
 
-            int m;
-            bool b = int.TryParse(move, out m);
+                int m;
+                isMoveValid = (int.TryParse(move, out m) && m >= 1 && m <= 9);
+                if (!isMoveValid) Console.WriteLine("Invalid move");        
+            } while (!isMoveValid);
 
-
-
-            Console.ReadKey();
+            // make move and change player
         }
     }
 }
