@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 
 namespace TicTacToe
 {
@@ -18,11 +17,16 @@ namespace TicTacToe
             Console.WriteLine("   |   |   ");
             Console.WriteLine("---+---+---");
             Console.WriteLine("   |   |   ");
+
+            Console.Write("Where do you want to move? ");
+            string move = Console.ReadLine();
+
+            int m;
+            bool b = int.TryParse(move, out m);
+
+
+
+            Console.ReadKey();
         }
     }
 }
-
-// LAB 1
-// 1) Define a type to represent a piece (enum)
-// 2) Define a variable for each position
-// 3) Define a variable for the current player
