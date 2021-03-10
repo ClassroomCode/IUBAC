@@ -3,13 +3,11 @@ using System.Collections.Generic;
 
 namespace TicTacToe
 {
-    enum Piece { X, O }
-
-    class Program
+    static class Program
     {
         static void Main(string[] args)  
         {
-            Piece? pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9;
+            var board = new Piece?[9]; 
 
             var currentPlayer = Piece.X;
 
@@ -39,3 +37,16 @@ namespace TicTacToe
         }
     }
 }
+
+/* LAB
+
+1) Define a public class named Game (Game.cs)
+2) Define a private field for the board and the current player
+3) Move definition of Piece into Game.cs
+4) Define a constructor that inits board and current player
+5) Provide a way to get the piece in a position
+6) Provide a method to make a move (take a position and update the board)
+7) Provide a way to ask if the board is full
+
+8) BONUS *** Define a method that will return if there is a winner
+ */
