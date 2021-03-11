@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace TicTacToe
 {
     public enum Piece { X, O }
 
-    public class Game
+    public class Game 
     {
         private Piece?[] _board;
         private Piece _currentPlayer;
