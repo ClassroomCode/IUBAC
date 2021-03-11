@@ -7,46 +7,72 @@ namespace TicTacToe
     {
         static void Main(string[] args)  
         {
-            var board = new Piece?[9]; 
-
-            var currentPlayer = Piece.X;
-
-            do DrawBoard(); while (!MakeMove());
-
-            // make move and change player
+            Game game;
+            var playAgain = true;
+            do {
+                var gameOver = false;
+                game = new Game();
+                do {
+                    DrawBoard(game);
+                    var winner = game.Winner();
+                    if (winner.HasValue) {
+                        gameOver = true;
+                        if (winner == Piece.X) {
+                            Console.WriteLine("X is the winner!");
+                        }
+                        else {
+                            Console.WriteLine("O is the winner!");
+                        }
+                    }
+                    if (!gameOver && game.IsBoardFull) {
+                        gameOver = true;
+                        Console.WriteLine("It's a tie!");
+                    }
+                    if (!gameOver) {
+                        game.MakeMove(GetMove(game));
+                    }
+                    else {
+                        Console.Write("Play again [y/n]? ");
+                        var pa = Console.ReadLine();
+                        playAgain = (pa == "y");
+                        break;
+                    }
+                } while (true);
+            } while (playAgain);
         }
 
-        static void DrawBoard()
+        static void DrawBoard(Game game)
         {
-            Console.WriteLine("   |   |   ");
+            Console.WriteLine($" {DrawPiece(game[1])} | {DrawPiece(game[2])} | {DrawPiece(game[3])} ");
             Console.WriteLine("---+---+---");
-            Console.WriteLine("   |   |   ");
+            Console.WriteLine($" {DrawPiece(game[4])} | {DrawPiece(game[5])} | {DrawPiece(game[6])} ");
             Console.WriteLine("---+---+---");
-            Console.WriteLine("   |   |   ");
+            Console.WriteLine($" {DrawPiece(game[7])} | {DrawPiece(game[8])} | {DrawPiece(game[9])} ");
         }
 
-        static bool MakeMove()
+        static string DrawPiece(Piece? p) => p switch
         {
-            Console.Write("Where do you want to move? ");
-            string move = Console.ReadLine();
+            Piece.X => "X",
+            Piece.O => "O",
+            _ => " ",
+        };
 
-            int m;
-            bool isMoveValid = (int.TryParse(move, out m) && m >= 1 && m <= 9);
-            if (!isMoveValid) Console.WriteLine("Invalid move");
-            return isMoveValid;
+        static int GetMove(Game game)
+        {
+            do {
+                Console.Write("Where do you want to move? ");
+                string move = Console.ReadLine();
+
+                int m;
+                bool isMoveValid = (int.TryParse(move, out m) && m >= 1 && m <= 9);
+                isMoveValid = (isMoveValid && !game[m].HasValue);
+                if (!isMoveValid) {
+                    Console.WriteLine("Invalid move");
+                }
+                else {
+                    return m;
+                }
+            } while (true);
         }
     }
 }
-
-/* LAB
-
-1) Define a public class named Game (Game.cs)
-2) Define a private field for the board and the current player
-3) Move definition of Piece into Game.cs
-4) Define a constructor that inits board and current player
-5) Provide a way to get the piece in a position
-6) Provide a method to make a move (take a position and update the board)
-7) Provide a way to ask if the board is full
-
-8) BONUS *** Define a method that will return if there is a winner
- */
