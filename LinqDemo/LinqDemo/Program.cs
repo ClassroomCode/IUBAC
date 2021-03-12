@@ -10,15 +10,25 @@ namespace LinqDemo
         {
             var nums = new List<int>() { 1, 2, 3, 4, 5, 6 };
 
-            var evens2 = from n in nums
-                         where n % 2 == 0 && n > 2
-                         orderby n descending
-                         select n;
+            var evens = from n in nums
+                        where n % 2 == 0
+                        select n;
 
-            var evens = nums.Where(n => n % 2 == 0 && n > 2)
-                .OrderByDescending(n => n);
+            var bigEvens = from n in evens
+                           where n > 2
+                           select n;
 
-            evens.ToList().ForEach(n => Console.WriteLine(n));
+            var bigSortedEvens = from n in bigEvens
+                                 orderby n descending
+                                 select n;
+
+            bigSortedEvens.ToList().ForEach(n => Console.WriteLine(n));
+
+            Console.WriteLine("================");
+
+            nums.Add(8);
+
+            bigSortedEvens.ToList().ForEach(n => Console.WriteLine(n));
         }
     } 
 } 
