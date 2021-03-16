@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using EComm.Data;
 
 namespace EComm.Web
 {
@@ -28,6 +29,9 @@ namespace EComm.Web
             services.AddDbContext<ECommDataContext>(
                 options => options.UseSqlServer(
                     Configuration.GetConnectionString("ECommConnection")));
+
+            services.AddScoped<IRepository, ECommDataContext>(
+                sp => sp.GetService<ECommDataContext>());
 
             services.AddControllersWithViews();
         }
