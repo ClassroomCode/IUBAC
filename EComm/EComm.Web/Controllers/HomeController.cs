@@ -1,4 +1,5 @@
-﻿using EComm.Web.Models;
+﻿using EComm.Data;
+using EComm.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,17 +12,21 @@ namespace EComm.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IRepository _repository;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IRepository repository, ILogger<HomeController> logger)
         {
+            _repository = repository;
             _logger = logger;
         }
 
         [HttpGet("")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _repository.GetAllProducts();
+
+            return Json(products);
         }
 
         [HttpGet("privacy")]
