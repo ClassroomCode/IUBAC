@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace EComm.Data.EF
 {
+    // ecommdb.cvumiidokjlr.us-east-1.rds.amazonaws.com
+    // admin
+    // iubacdb94
+
+
     public class ECommDataContext : DbContext, IRepository
     {
         public ECommDataContext(DbContextOptions options)
